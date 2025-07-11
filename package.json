@@ -4,7 +4,7 @@
   "description": "AI Career Advisor project",
   "main": "index.js",
   "scripts": {
-    "dev": "vercel dev",
+    "dev": "npx vercel dev",
     "start": "vercel dev"
   },
   "keywords": ["ai", "career", "advisor", "gemini", "react"],

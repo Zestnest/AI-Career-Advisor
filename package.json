@@ -1,0 +1,13 @@
+{
+  "name": "ai-career-advisor",
+  "version": "1.0.0",
+  "description": "AI Career Advisor project",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "start": "vercel dev"
+  },
+  "keywords": ["ai", "career", "advisor", "gemini", "react"],
+  "author": "",
+  "license": "ISC"
+}

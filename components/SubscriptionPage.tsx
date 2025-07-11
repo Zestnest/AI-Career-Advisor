@@ -31,6 +31,9 @@ const SubscriptionPage: React.FC<SubscriptionPageProps> = ({ onBack }) => {
                         <span className="text-text-secondary">/month</span>
                     </div>
                     <button className="w-full bg-brand-primary hover:bg-brand-dark text-slate-900 font-bold py-3 px-4 rounded-lg transition duration-300">Choose Monthly</button>
+                    <div className="mt-2 text-center">
+                        <span className="text-sm text-gray-400 bg-gray-700/50 px-3 py-1 rounded-full">Coming Soon</span>
+                    </div>
                 </div>
                 <div className="bg-base-200 border border-base-300 p-8 rounded-xl flex flex-col transform transition-transform hover:scale-105 hover:border-brand-secondary/50">
                     <div className="flex justify-between items-center">
@@ -43,6 +46,9 @@ const SubscriptionPage: React.FC<SubscriptionPageProps> = ({ onBack }) => {
                         <span className="text-text-secondary">/year</span>
                     </div>
                     <button className="w-full bg-base-300 hover:bg-brand-secondary/40 text-text-primary font-bold py-3 px-4 rounded-lg transition duration-300">Choose Annual</button>
+                    <div className="mt-2 text-center">
+                        <span className="text-sm text-gray-400 bg-gray-700/50 px-3 py-1 rounded-full">Coming Soon</span>
+                    </div>
                 </div>
             </div>
 

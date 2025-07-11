@@ -31,8 +31,8 @@ const PremiumUpsell: React.FC<PremiumUpsellProps> = ({ features, topCareer, onUp
                 </ul>
             </div>
             <div>
-                <button onClick={onUpgradeClick} className="bg-brand-primary text-slate-900 font-bold py-3 px-10 rounded-full transition-transform transform hover:scale-105 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-brand-primary/50">
-                    Upgrade Now
+                <button disabled className="bg-gray-600/50 text-gray-400 font-bold py-3 px-10 rounded-full cursor-not-allowed shadow-lg">
+                    Coming Soon
                 </button>
             </div>
       </div>

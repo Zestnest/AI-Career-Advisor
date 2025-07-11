@@ -151,10 +151,11 @@ const CareerResults: React.FC<CareerResultsProps> = ({ results, onUpgradeClick }
                   <div className="mt-6">
                     <button 
                       onClick={onUpgradeClick}
-                      className="w-full bg-brand-primary/20 hover:bg-brand-primary/40 text-brand-primary font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out flex items-center justify-center gap-2"
+                      className="w-full bg-gray-600/50 text-gray-400 font-bold py-2 px-4 rounded-lg cursor-not-allowed flex items-center justify-center gap-2"
+                      disabled
                     >
                       <LockClosedIcon className="w-4 h-4" />
-                      Unlock Roadmap
+                      Coming Soon
                     </button>
                   </div>
                 )}

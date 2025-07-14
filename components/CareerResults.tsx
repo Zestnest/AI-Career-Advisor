@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import type { CareerAdviceResponse, RecommendedCourse, UserInput } from '../types';
+import { getCurrencyForCountry } from '../data/currencies';
 import PremiumUpsell from './PremiumUpsell';
 import FaqSection from './FaqSection';
 import { LockClosedIcon } from './icons/LockClosedIcon';
@@ -15,9 +16,6 @@ interface CareerResultsProps {
 const CourseTable: React.FC<{ courses: RecommendedCourse[] }> = ({ courses }) => (
     <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
-            <caption className="caption-bottom text-sm text-text-secondary/80 p-4 text-center">
-                This learning roadmap was generated based on your profile for the role of {courses[0]?.title ? '...' : ''}. Course links may be affiliates.
-            </caption>
             <thead className="border-b-2 border-base-300">
                 <tr>
                     <th className="p-4 text-sm font-semibold text-text-secondary uppercase tracking-wider">Course</th>
@@ -34,19 +32,21 @@ const CourseTable: React.FC<{ courses: RecommendedCourse[] }> = ({ courses }) =>
                             {course.link ? (
                                 <a href={course.link} target="_blank" rel="noopener noreferrer" className="text-brand-primary hover:underline hover:text-brand-dark">
                                     {course.title}
-                                    <p className="text-xs text-brand-secondary/80 mt-1">(Affiliate Link)</p>
                                 </a>
                             ) : (
                                 course.title
                             )}
                         </td>
                         <td className="p-4 align-top text-text-secondary">{course.platform}</td>
-                        <td className="p-4 align-top text-text-secondary">{course.estimated_cost}</td>
-                        <td className="p-4 align-top text-text-secondary">{course.duration}</td>
+                        <td className="p-4 align-top text-text-secondary font-semibold">{course.estimated_cost}</td>
+                        <td className="p-4 align-top text-text-secondary font-medium">{course.duration}</td>
                         <td className="p-4 align-top text-text-secondary">{course.rationale}</td>
                     </tr>
                 ))}
             </tbody>
+            <caption className="caption-bottom text-sm text-text-secondary/80 p-4 text-center">
+                This comprehensive learning roadmap was generated based on your profile. Course links may be affiliates.
+            </caption>
         </table>
     </div>
 );
@@ -167,11 +167,37 @@ const CareerResults: React.FC<CareerResultsProps> = ({ results, onUpgradeClick }
 
       <section>
         <h2 className="text-3xl font-bold mb-8 text-text-primary flex items-center"><span className="w-1.5 h-8 bg-brand-primary rounded-full mr-4"></span>Your Learning Roadmap for {topRecommendation.career}</h2>
+        <div className="mb-6 p-4 bg-brand-primary/10 border border-brand-primary/30 rounded-lg">
+          <p className="text-text-primary font-medium">
+            📚 <strong>Complete Learning Path:</strong> This roadmap takes you from beginner to advanced level over 18-24 months with detailed courses, costs, and timeframes.
+          </p>
+        </div>
         {topRecommendation.learning_phases && topRecommendation.learning_phases.length > 0 ? (
             <div className="space-y-10">
             {topRecommendation.learning_phases.map((phase, index) => (
-                <div key={index} className="bg-base-200 p-6 rounded-xl border border-base-300 shadow-md">
+                <div key={index} className="bg-base-200 p-6 rounded-xl border border-base-300 shadow-md relative">
+                    <div className="absolute -top-3 left-6 bg-brand-primary text-slate-900 px-3 py-1 rounded-full text-sm font-bold">
+                        Phase {index + 1}
+                    </div>
                     <h3 className="text-2xl font-bold text-text-primary mb-4">{phase.phase_title}</h3>
+                    <div className="mb-4 flex flex-wrap gap-4 text-sm text-text-secondary">
+                        <span className="flex items-center">
+                            <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                            </svg>
+                            {phase.courses.length} courses
+                        </span>
+                        <span className="flex items-center">
+                            <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
+                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-7-8a7 7 0 1114 0 7 7 0 01-14 0z" clipRule="evenodd" />
+                            </svg>
+                            Estimated total cost: {phase.courses.reduce((total, course) => {
+                                const cost = course.estimated_cost.match(/\d+/);
+                                return total + (cost ? parseInt(cost[0]) : 0);
+                            }, 0)} {getCurrencyForCountry(userInput.location)}
+                        </span>
+                    </div>
                     <CourseTable courses={phase.courses} />
                 </div>
             ))}

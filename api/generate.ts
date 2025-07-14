@@ -1,8 +1,3 @@
-import { GoogleGenAI } from "@google/genai";
-import type { UserInput, CareerAdviceResponse } from '../types';
-import { getCurrencyForCountry } from '../data/currencies';
-
-// This is a serverless function, and the file will not be exposed to the client.
 // It's safe to use the API key here from environment variables.
 
 const constructMainPrompt = (userInput: UserInput): string => {
@@ -70,18 +65,3 @@ export default async function handler(request: Request) {
     });
 
     // The response.text from the SDK is already a clean JSON string when responseMimeType is set
-    // No need to parse or clean it further. It's returned directly.
-    return new Response(response.text, {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-    });
-
-  } catch (error) {
-    console.error("Error in serverless function:", error);
-    const errorMessage = error instanceof Error ? error.message : "An unknown error occurred on the server.";
-    return new Response(JSON.stringify({ error: `Failed to get a valid response from the AI. ${errorMessage}` }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-    });
-  }
-}

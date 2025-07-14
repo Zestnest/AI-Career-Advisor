@@ -46,3 +46,4 @@ export default async function handler(request: Request) {
     // The response.text from the SDK is already a clean JSON string when responseMimeType is set
   }
 }
+}

@@ -169,7 +169,7 @@ const CareerResults: React.FC<CareerResultsProps> = ({ results, onUpgradeClick }
         <h2 className="text-3xl font-bold mb-8 text-text-primary flex items-center"><span className="w-1.5 h-8 bg-brand-primary rounded-full mr-4"></span>Your Learning Roadmap for {topRecommendation.career}</h2>
         <div className="mb-6 p-4 bg-brand-primary/10 border border-brand-primary/30 rounded-lg">
           <p className="text-text-primary font-medium">
-            📚 <strong>Complete Learning Path:</strong> This roadmap takes you from beginner to advanced level over 18-24 months with detailed courses, costs, and timeframes.
+            📚 <strong>Complete 24-Month Learning Path:</strong> This comprehensive roadmap takes you from beginner to expert level with 4 progressive phases, detailed courses, realistic costs, and specific timeframes.
           </p>
         </div>
         {topRecommendation.learning_phases && topRecommendation.learning_phases.length > 0 ? (
@@ -189,10 +189,19 @@ const CareerResults: React.FC<CareerResultsProps> = ({ results, onUpgradeClick }
                         </span>
                         <span className="flex items-center">
                             <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+                            </svg>
+                            {phase.phase_title.includes('1-6') ? '6 months' : 
+                             phase.phase_title.includes('7-12') ? '6 months' :
+                             phase.phase_title.includes('13-18') ? '6 months' :
+                             phase.phase_title.includes('19-24') ? '6 months' : '6 months'}
+                        </span>
+                        <span className="flex items-center">
+                            <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
                                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-7-8a7 7 0 1114 0 7 7 0 01-14 0z" clipRule="evenodd" />
                             </svg>
-                            Estimated total cost: {phase.courses.reduce((total, course) => {
+                            Phase cost: {phase.courses.reduce((total, course) => {
                                 const cost = course.estimated_cost.match(/\d+/);
                                 return total + (cost ? parseInt(cost[0]) : 0);
                             }, 0)} {getCurrencyForCountry(userInput.location)}
@@ -204,7 +213,25 @@ const CareerResults: React.FC<CareerResultsProps> = ({ results, onUpgradeClick }
             </div>
         ) : (
             <div className="bg-base-200 p-8 rounded-xl border border-base-300 text-center text-text-secondary">
-                <p>A learning path could not be generated for this career. Try adjusting your profile and generating again.</p>
+                <div className="space-y-4">
+                    <p className="text-lg font-semibold text-text-primary">⚠️ Learning Path Generation Issue</p>
+                    <p>A comprehensive learning path could not be generated for this career recommendation.</p>
+                    <div className="bg-yellow-900/20 border border-yellow-500/50 p-4 rounded-lg text-left">
+                        <p className="font-semibold text-yellow-300 mb-2">Troubleshooting Steps:</p>
+                        <ul className="space-y-1 text-sm">
+                            <li>• Try providing more specific skills and experience details</li>
+                            <li>• Ensure your interests and goals are clearly stated</li>
+                            <li>• Check that all form fields are properly filled</li>
+                            <li>• Try generating again - AI responses can vary</li>
+                        </ul>
+                    </div>
+                    <button 
+                        onClick={() => window.location.reload()} 
+                        className="bg-brand-primary hover:bg-brand-dark text-slate-900 font-bold py-2 px-6 rounded-lg transition-colors"
+                    >
+                        Try Again
+                    </button>
+                </div>
             </div>
         )}
       </section>

@@ -12,29 +12,8 @@ IMPORTANT: Generate all "estimated_cost" values in ${currencyCode}. The "duratio
 
 Additionally, generate a 'faq' section with 3-4 questions and answers relevant to the top career path. These should cover common queries like salary expectations for the user's region, daily responsibilities, or future career outlook.
 
-Finally, provide content for ads, affiliate resources, and a premium subscription offer. For the subscription offer, generate a personalized title and description including the top career path. The features should be AI-centric and realistic.
-
 Output the entire response as a single, valid, structured JSON object. Do not wrap it in markdown fences.
 
-The JSON schema must be:
-{
-  "career_recommendations": [{ "career": "string", "rationale": "string", "learning_phases": [{ "phase_title": "string", "courses": [{"title": "string", "platform": "string", "rationale": "string", "estimated_cost": "string", "duration": "string", "link": "string"}] }] }],
-  "ads_and_affiliates": { "ad_sense_content": "string", "affiliate_resources": [{"name": "string", "link": "string"}] },
-  "subscription_features": { "title": "string", "description": "string", "features": ["string"] },
-  "faq": [{ "question": "string", "answer": "string" }]
-}
-Note: The "learning_phases" array should only be populated for the first career recommendation in this initial response.
-
-User's data:
-- Education: ${userInput.education}
-- Skills: ${userInput.skills}
-- Experience: ${userInput.experience}
-- Interests and Goals: ${userInput.interests}
-- Preferred Location: ${userInput.location}
-- Other Factors: ${userInput.otherFactors}
-
-Generate the JSON output.
-  `;
 };
 
 export default async function handler(request: Request) {
